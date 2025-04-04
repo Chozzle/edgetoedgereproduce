@@ -1,15 +1,19 @@
 package com.example.edgetoedgeedittext
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalDensity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -30,10 +34,13 @@ class MainActivity : AppCompatActivity() {
 
         val composeView = findViewById<ComposeView>(R.id.composeView)
         composeView.setContent {
+            // Note that this reads 151 instead of 0 after config change
+            Log.d("MainActivity", "Top systemBar insets: ${WindowInsets.systemBars.getTop(LocalDensity.current)}")
+
             Scaffold(topBar = {
-                TopAppBar(title = { Text("Title") })
+                TopAppBar(title = { Text("TopAppBar Title") })
             }) { paddingValues ->
-                Text("Hello", modifier = Modifier.padding(paddingValues))
+                Text("Some content", modifier = Modifier.padding(paddingValues))
             }
         }
 
